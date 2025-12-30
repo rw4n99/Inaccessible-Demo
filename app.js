@@ -1,33 +1,37 @@
 const grid = document.getElementById('product-grid');
-const cartList = document.getElementById('cart-list');
 let cart = [];
 
-function render() {
-    products.forEach((p, index) => {
-        grid.innerHTML += `
-            <div class="card">
-                <img src="${p.img}">
-                <div class="title">${p.name}</div>
-                <div class="btn" onclick="addToCart(${index})">Add to Cart</div>
-            </div>`;
-    });
-}
+// 1. Unstoppable Banner
+setInterval(() => {
+    const slides = document.querySelectorAll('.banner-slide');
+    let active = Array.from(slides).findIndex(s => s.classList.contains('active'));
+    slides[active].classList.remove('active');
+    slides[(active + 1) % slides.length].classList.add('active');
+}, 3000);
 
-function addToCart(index) {
-    cart.push(products[index]);
-    updateCartUI();
+// 2. Dynamic Shop
+products.forEach((p, idx) => {
+    grid.innerHTML += `<div class="card"><img src="${p.img}"><div class="title">${p.name}</div><div class="btn" onclick="addToCart(${idx})">Add</div></div>`;
+});
+
+function addToCart(idx) {
+    cart.push(products[idx]);
+    const total = cart.reduce((s, i) => s + i.price, 0);
+    document.getElementById('cart-info').innerText = `Cart (${cart.length}) - $${total}`;
+    document.getElementById('cart-list').innerHTML = cart.map(i => `<div class="cart-item"><span>${i.name}</span></div>`).join('');
     toggleCart(true);
 }
 
-function updateCartUI() {
-    cartList.innerHTML = "";
-    cart.forEach(item => {
-        cartList.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>$${item.price}</span></div>`;
-    });
+function submitOrder() {
+    const card = document.getElementById('bad-card');
+    if(card.value.length < 16) {
+        card.style.border = "2px solid red";
+        alert("Error!");
+    } else {
+        alert("Success!");
+    }
 }
 
-function toggleCart(open) {
-    document.getElementById('bad-cart').className = open ? 'cart-sidebar open' : 'cart-sidebar';
-}
-
-render();
+function toggleCart(o) { document.getElementById('bad-cart').classList.toggle('open', o); }
+function toggleCheckout(o) { document.getElementById('bad-checkout').classList.toggle('open', o); }
+function setView(v) { document.getElementById('product-grid').className = (v === 'list') ? 'grid list-view' : 'grid'; }

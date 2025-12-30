@@ -1,24 +1,44 @@
 <html>
 <head>
-    <title>Sneaker Shop</title>
+    <title>Inaccessible Shop</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="inaccessible">
     <div class="header">
         <div class="logo">SNEAKER_PRO</div>
         <div class="nav">
-            <span class="nav-item" onclick="location.href='#'">Shop</span>
-            <span class="nav-item" onclick="toggleCart(true)">Cart</span>
+            <span class="nav-item" onclick="toggleCart(true)" id="cart-info">Cart (0) - $0</span>
         </div>
+    </div>
+
+    <div class="banner-container">
+        <div class="banner-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800')">SALE</div>
+        <div class="banner-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800')">NEW</div>
+    </div>
+
+    <div class="controls">
+        <div class="btn" onclick="setView('grid')">Grid</div>
+        <div class="btn" onclick="setView('list')">List</div>
     </div>
 
     <div id="product-grid" class="grid"></div>
 
     <div id="bad-cart" class="cart-sidebar">
-        <div class="close-btn" onclick="toggleCart(false)">X</div>
-        <h2>Your Cart</h2>
+        <div class="btn" onclick="toggleCart(false)" style="width:30px; float:right;">X</div>
+        <h2>Cart</h2>
         <div id="cart-list"></div>
-        <div class="btn checkout-btn" onclick="alert('Checking out...')">Checkout</div>
+        <div class="btn" onclick="toggleCheckout(true)">Checkout</div>
+    </div>
+
+    <div id="bad-checkout" class="checkout-overlay">
+        <div class="btn" onclick="toggleCheckout(false)" style="width:100px;">← Back</div>
+        <h1>Checkout</h1>
+        <h3>Shipping Info</h3>
+        <input type="text" id="bad-name" placeholder="Name">
+        <input type="text" placeholder="Address">
+        <h3>Payment</h3>
+        <input type="text" id="bad-card" placeholder="Card Number">
+        <div class="btn" onclick="submitOrder()">Place Order</div>
     </div>
 
     <script src="products.js"></script>
