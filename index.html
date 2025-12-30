@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Sneaker Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">SNEAKER_PRO</div>
+        <div class="nav">
+            <span class="nav-item" onclick="location.href='#'">Shop</span>
+            <span class="nav-item" onclick="toggleCart(true)">Cart</span>
+        </div>
+    </div>
+
+    <div id="product-grid" class="grid"></div>
+
+    <div id="bad-cart" class="cart-sidebar">
+        <div class="close-btn" onclick="toggleCart(false)">X</div>
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+        <div class="btn checkout-btn" onclick="alert('Checking out...')">Checkout</div>
+    </div>
+
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
